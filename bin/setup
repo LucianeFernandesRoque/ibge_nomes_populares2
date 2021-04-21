@@ -12,12 +12,17 @@ begin
   db.execute <<~SQL
     CREATE TABLE Estados(
       id integer
-      sigla varchar(255)
+      sigla varchar(255),
       nome varchar(255)
     );
   SQL
+ def save_to_db
+    db = SQLite3::Database.open "db/database.db"
+    db.execute "INSERT INTO estados VALUES('#{ id }', '#{ sigla }',#{ nome })"
+    db.close
+    self
+  end
 
-  
 
 rescue SQLite3::Exception => e
   puts e

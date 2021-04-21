@@ -1,3 +1,4 @@
+require 'sqlite3'
 class IbgeEstados
   attr_accessor :id, :sigla, :nome
 
