@@ -14,10 +14,18 @@ begin
       id integer
       sigla varchar(255),
       nome varchar(255)
-    );
+    ); 
   SQL
 
 
+# Execute inserts with parameter markers
+  
+db = db.execute("INSERT INTO estados (id, sigla, nome) 
+            VALUES (?, ?, ?)", [@id, @sigla, @nome])
+
+db = db.execute( "select * from estados" ) do |row|
+  p row
+end
 
 rescue SQLite3::Exception => e
   puts e
