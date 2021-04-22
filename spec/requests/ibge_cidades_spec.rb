@@ -2,7 +2,6 @@ require 'faraday'
 require 'ibge_cidades'
 require 'spec_helper'
 require 'json'
-require byebug
 
 describe 'IbgeCidades' do
   context 'api validates' do
@@ -20,6 +19,7 @@ describe 'IbgeCidades' do
 
   it 'return the last params' do
     response = Faraday.get 'https://servicodados.ibge.gov.br/api/v1/localidades/municipios?orderBy=nome'
-    expect(response.body)
+
+    json_response = JSON.parse(response.body)
   end
 end

@@ -16,12 +16,7 @@ begin
       nome varchar(255)
     );
   SQL
- def save_to_db
-    db = SQLite3::Database.open "db/database.db"
-    db.execute "INSERT INTO estados VALUES('#{ id }', '#{ sigla }',#{ nome })"
-    db.close
-    self
-  end
+
 
 
 rescue SQLite3::Exception => e
