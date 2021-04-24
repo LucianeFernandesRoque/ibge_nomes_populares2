@@ -7,11 +7,12 @@ system('bundle check') || system('bundle install')
 require 'sqlite3'
 
 puts "\n== Preparando banco de dados =="
+
 begin
   db = SQLite3::Database.open "/home/luciane/ibge_nomes_populares_com_bd/db/database.db"
   db.execute <<~SQL
     CREATE TABLE Estados(
-      id integer
+      id integer,
       sigla varchar(255),
       nome varchar(255)
     ); 
@@ -19,13 +20,9 @@ begin
 
 
 # Execute inserts with parameter markers
-  
-db = db.execute("INSERT INTO estados (id, sigla, nome) 
+db.execute("INSERT INTO estados (id, sigla, nome) 
             VALUES (?, ?, ?)", [@id, @sigla, @nome])
 
-db = db.execute( "select * from estados" ) do |row|
-  p row
-end
 
 rescue SQLite3::Exception => e
   puts e
