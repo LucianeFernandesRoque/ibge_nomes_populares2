@@ -9,23 +9,38 @@ require 'sqlite3'
 puts "\n== Preparando banco de dados =="
 
 begin
-  @db = SQLite3::Database.open "/home/luciane/ibge_nomes_populares_com_bd/db/database.db"
-    @db.execute <<~SQL
+  db = SQLite3::Database.open '/home/luciane/ibge_nomes_populares_com_bd/db/database.db'
+  db.execute <<~SQL
     CREATE TABLE Estados(
       id integer,
-      sigla varchar(255),
-      nome varchar(255)
-    ); 
+      sigla varchar(100),
+      nome varchar(100)
+    );
   SQL
-
-
-# Execute inserts with parameter markers
-@db = db.execute("INSERT INTO estados (id, sigla, nome) 
-            VALUES (?, ?, ?)", [@id, @sigla, @nome])
-
-
+  db.execute <<~SQL
+    CREATE TABLE Cidades(
+    id integer,
+    sigla varchar(5),
+    nome varchar(100)
+    );
+  SQL
+  db.execute <<~SQL
+    CREATE TABLE Frequencia_nomes(
+    nome varchar(100),
+    frequencia integer,
+    periodo integer,
+    decadas integer,
+    );
+  SQL
+  db.execute <<~SQL
+        CREATE TABLE Ranking_nomes(
+          id integer
+          sexo varchar(2)
+          nome varchar(100)
+          ranking integer
+          frequencia integer
+    );
+  SQL
 rescue SQLite3::Exception => e
   puts e
-ensure
-
 end

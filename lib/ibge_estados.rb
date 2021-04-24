@@ -2,7 +2,7 @@ require 'sqlite3'
 class IbgeEstados
   attr_accessor :id, :sigla, :nome
 
-  def initialize=(id, sigla, nome)
+  def initialize=(id:, sigla:, nome:)
     @id = id
     @sigla = sigla
     @nome = nome
@@ -16,12 +16,14 @@ class IbgeEstados
     end
   end
 
-
   def self.table_estado
     @rows = []
     @table = Terminal::Table.new rows: @rows
     @table = Terminal::Table.new title: 'Estados', headings: %w[Id Estado UF], rows: estados_all
   end
-
-
+#--------------------------------------------DB-------------------------------------------------------------------------
+  def save
+  query = "insert into estados (id, sigla, nome) values (?, ?, ?)"
+  DB.db_access(query, self.id, self.sigla, self.nome)
+  end
 end
