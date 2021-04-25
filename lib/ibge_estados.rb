@@ -21,9 +21,17 @@ class IbgeEstados
     @table = Terminal::Table.new rows: @rows
     @table = Terminal::Table.new title: 'Estados', headings: %w[Id Estado UF], rows: estados_all
   end
-#--------------------------------------------DB-------------------------------------------------------------------------
-  def save
-  query = "insert into estados (id, sigla, nome) values (?, ?, ?)"
-  DB.db_access(query, self.id, self.sigla, self.nome)
+
+  #--------------------------------------------DB-------------------------------------------------------------------------
+  def self.all
+    db = SQLite3::Database.open 'ibge_nomes.db'
+    db.results_as_hash = true
+    estados = db.execute 'SELECT id, sigla, nome FROM estados'
+    db.close
+  end
+
+  def save_to_db
+    query = 'insert into estados (id, sigla, nome) values (?, ?, ?)'
+    DB.db_access(query, id, sigla, nome)
   end
 end

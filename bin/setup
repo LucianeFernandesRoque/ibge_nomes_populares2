@@ -1,13 +1,13 @@
 #!/usr/bin/env ruby
-require 'sqlite3'
 
 puts '== Instalando dependências =='
 system 'gem install bundler --conservative'
 system('bundle check') || system('bundle install')
+require 'sqlite3'
 
 puts "\n== Preparando banco de dados =="
 
-DB_FILE = 'ibge_nomes.db'
+DB_FILE = "ibge_nomes.db"
 
 return puts "\n== Database found ==" if File.exist? DB_FILE
 
@@ -17,10 +17,16 @@ begin
     CREATE TABLE Estados(
       id integer PRIMARY KEY,
       sigla varchar(10) NOT NULL,
-      nome varchar(100) NOT NULL,
+      nome varchar(100) NOT NULL
     );
   SQL
-
+  db.execute <<~SQL
+      CREATE TABLE Cidades(
+      id integer PRIMARY KEY,
+      sigla varchar(10) NOT NULL,
+      nome varchar(100) NOT NULL
+    );
+  SQL
 
 rescue SQLite3::Exception => e
   puts e
