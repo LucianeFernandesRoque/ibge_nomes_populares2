@@ -26,11 +26,6 @@ class FrequenciaNomes
       end
     end
   end
+ 
 
-  def self.table_decadas
-    @rows = []
-    @table = Terminal::Table.new rows: @rows
-    @table = Terminal::Table.new title: 'Frequencia por decada'.blue, headings: ['Nome'.cyan, 'frequencia'.cyan, 'Periodo'.cyan],
-                                 rows: frequencia_decadas[0]
-  end
 end

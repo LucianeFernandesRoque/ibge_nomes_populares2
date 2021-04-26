@@ -2,7 +2,7 @@ require 'sqlite3'
 class IbgeEstados
   attr_accessor :id, :sigla, :nome
 
-  def initialize=(id:, sigla:, nome:)
+  def initialize=(id, sigla, nome)
     @id = id
     @sigla = sigla
     @nome = nome
@@ -26,12 +26,15 @@ class IbgeEstados
   def self.all
     db = SQLite3::Database.open 'ibge_nomes.db'
     db.results_as_hash = true
-    estados = db.execute 'SELECT id, sigla, nome FROM estados'
+    estados = db.execute "SELECT id, sigla, nome FROM estados"
     db.close
+    estados.map {|estado| new(id: estado['id'],sigla: estado['sigla'],nome: estado['nome'])}
   end
 
   def save_to_db
-    query = 'insert into estados (id, sigla, nome) values (?, ?, ?)'
-    DB.db_access(query, id, sigla, nome)
+    db = SQLite3::Database.open "ibge_nomes.db"
+    db.execute "INSERT INTO estados VALUES('#{ id }', '#{ sigla }','#{ nome }')"
+    db.close
+    self
   end
 end

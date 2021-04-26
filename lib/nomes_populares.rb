@@ -15,7 +15,7 @@ while option != 4
     puts IbgeCidades.table_cidades_all
     puts RankingNomes.table_nomes
   elsif option == INSERT_NOMES
-    puts FrequenciaNomes.table_decadas
+    puts FrequenciaNomes.frequencia_decadas
   else
     invalid_option
   end

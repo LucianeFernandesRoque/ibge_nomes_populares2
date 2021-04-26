@@ -1,6 +1,6 @@
 require 'sqlite3'
 
-class IbgeCidadesrequire
+class IbgeCidades
   attr_accessor :id, :sigla, :nome
 
   def initialize=(id, sigla, nome)
