@@ -19,7 +19,7 @@ class RankingNomes
   end
 
   def self.nomes_all
-    puts 'Digite o id da uf?'
+    puts 'Digite o id ?'
     puts id = gets.chomp
     puts 'Selecione F ou M'
     sexo = gets.chomp
