@@ -1,4 +1,8 @@
 require 'sqlite3'
+require 'faraday'
+require 'json'
+
+
 class IbgeEstados
   attr_accessor :id, :sigla, :nome
 

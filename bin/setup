@@ -1,7 +1,16 @@
 #!/usr/bin/env ruby
+
 require 'sqlite3'
 require 'faraday'
 require 'json'
+
+set -e
+
+bundle install
+
+echo
+echo '== Tudo configurado, pode iniciar ;) =='
+
 puts '== Instalando dependências =='
 system 'gem install bundler --conservative'
 system('bundle check') || system('bundle install')
