@@ -45,6 +45,7 @@ GEM
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (1.7.0)
+    vcr (6.0.0)
     zeitwerk (2.4.2)
 
 PLATFORMS
@@ -60,6 +61,7 @@ DEPENDENCIES
   simplecov
   sqlite3
   terminal-table
+  vcr
 
 RUBY VERSION
    ruby 2.7.2p137
