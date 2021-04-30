@@ -2,7 +2,6 @@ require 'sqlite3'
 require 'faraday'
 require 'json'
 
-
 class IbgeEstados
   attr_accessor :id, :sigla, :nome
 
@@ -14,9 +13,9 @@ class IbgeEstados
 
   def self.estados_all
     response = Faraday.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome')
-    json = JSON.parse(response.body.to_json,symbolize_names: true)
+    json = JSON.parse(response.body.to_json, symbolize_names: true)
     json.map do |dados|
-    @dados = [dados[:id], dados[:sigla], dados[:nome]] 
+    @dados = [dados[:id], dados[:sigla], dados[:nome]]
     end
   end
 

@@ -3,19 +3,9 @@
 require 'sqlite3'
 require 'faraday'
 require 'json'
-
-set -e
-
-bundle install
-
-echo
-echo '== Tudo configurado, pode iniciar ;) =='
-
 puts '== Instalando dependências =='
 system 'gem install bundler --conservative'
 system('bundle check') || system('bundle install')
-
-puts "\n== Preparando banco de dados =="
 
 DB_FILE = 'ibge_nomes.db'
 begin
@@ -29,7 +19,7 @@ begin
   SQL
 
   response = Faraday.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome')
-  json = JSON.parse(response.body, symbolize_names: true)
+  json = JSON.parse(response.body.to_json, symbolize_names: true)
   estados = []
   json.map do |dados|
     @id = dados[:id]
@@ -37,36 +27,9 @@ begin
     @nome = dados[:nome]
     estados << [@id, @sigla, @nome]
   end
-    estados.each do |estado|
-     db.execute "INSERT INTO Estados VALUES(?,?,?)", estado
-    end
-rescue SQLite3::Exception => e
-  puts e
-ensure
-  db.close if db
-end
-begin
-  db = SQLite3::Database.open DB_FILE
-  db.execute <<~SQL
-    CREATE TABLE Cidades(
-    id integer PRIMARY KEY ,
-    sigla varchar(10) NOT NULL,
-    nome varchar(100) NOT NULL
-    );
-  SQL
-
-  response = Faraday.get('https://servicodados.ibge.gov.br/api/v1/localidades/municipios?orderBy=nome')
-  json = JSON.parse(response.body, symbolize_names: true)
-  cidades = []
-  json.map do |dados|
-    @id = dados[:id]
-    @sigla = dados[:sigla]
-    @nome = dados[:nome]
-    cidades << [@id, @sigla, @nome]
-    end
-    cidades.each do |cidade|
-      db.execute "INSERT INTO Cidades VALUES(?,?,?)", cidade
-    end
+  estados.each do |estado|
+    db.execute 'INSERT INTO Estados VALUES(?,?,?)', estado
+  end
 rescue SQLite3::Exception => e
   puts e
 ensure
