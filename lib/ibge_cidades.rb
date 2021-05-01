@@ -1,4 +1,6 @@
 require 'sqlite3'
+require 'faraday'
+require 'json'
 
 class IbgeCidades
   attr_accessor :id, :sigla, :nome
@@ -16,7 +18,7 @@ class IbgeCidades
       @cidades = cidades[:id], cidades[:nome], cidades[:microrregiao][:mesorregiao][:UF][:id]
     end
   end
-
+  puts  IbgeCidades.cidades_all[0]
   def self.table_cidades_all
     @rows = []
     @table = Terminal::Table.new rows: @rows
