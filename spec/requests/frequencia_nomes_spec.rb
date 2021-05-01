@@ -3,6 +3,7 @@ require 'frequencia_nomes'
 require 'spec_helper'
 require 'json'
 
+
 describe 'FrequenciaNomes' do
   context 'api validates' do
     it 'validate status' do

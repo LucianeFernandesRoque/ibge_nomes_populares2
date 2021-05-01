@@ -1,6 +1,5 @@
 require 'sqlite3'
 require 'json'
-require 'webmock/rspec'
 require 'faraday'
 class IbgeEstados
   attr_accessor :id, :sigla, :nome
@@ -12,13 +11,12 @@ class IbgeEstados
   end
 
   def self.estados_all
-    response = Faraday.get("https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome")
+    response = Faraday.get 'https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome'
     json = JSON.parse(response.body, symbolize_names: true)
     json.map do |dados|
-    @dados = dados[:id], dados[:sigla], dados[:nome]
+      @dados = dados[:id], dados[:sigla], dados[:nome]
     end
   end
-
   def self.table_estado
     @rows = []
     @table = Terminal::Table.new rows: @rows
@@ -26,18 +24,18 @@ class IbgeEstados
   end
 
   #--------------------------------------------DB-------------------------------------------------------------------------
-  #def self.all
-    #db = SQLite3::Database.open 'ibge_nomes.db'
-    #db.results_as_hash = true
-    #estados = db.execute "SELECT id, sigla, nome FROM estados"
-    #db.close
-    #estados.map {|estado| new(id: estado['id'],sigla: estado['sigla'],nome: estado['nome'])}
-  #end
+  # def self.all
+  # db = SQLite3::Database.open 'ibge_nomes.db'
+  # db.results_as_hash = true
+  # estados = db.execute "SELECT id, sigla, nome FROM estados"
+  # db.close
+  # estados.map {|estado| new(id: estado['id'],sigla: estado['sigla'],nome: estado['nome'])}
+  # end
 
-  #def save_to_db
-    #db = SQLite3::Database.open "ibge_nomes.db"
-    #db.execute "INSERT INTO estados VALUES('#{ id }', '#{ sigla }','#{ nome }')"
-    #db.close
-    #self
-  #end
+  # def save_to_db
+  # db = SQLite3::Database.open "ibge_nomes.db"
+  # db.execute "INSERT INTO estados VALUES('#{ id }', '#{ sigla }','#{ nome }')"
+  # db.close
+  # self
+  # end
 end
