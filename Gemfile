@@ -16,3 +16,5 @@ gem 'simplecov', require: false, group: :test
 gem 'sqlite3'
 gem 'terminal-table'
 gem 'vcr'
+gem "webmock"
+

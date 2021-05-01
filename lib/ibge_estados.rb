@@ -1,7 +1,7 @@
 require 'sqlite3'
-require 'faraday'
 require 'json'
-
+require 'webmock/rspec'
+require 'faraday'
 class IbgeEstados
   attr_accessor :id, :sigla, :nome
 
@@ -12,10 +12,10 @@ class IbgeEstados
   end
 
   def self.estados_all
-    response = Faraday.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome')
-    json = JSON.parse(response.body.to_json, symbolize_names: true)
+    response = Faraday.get("https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome")
+    json = JSON.parse(response.body, symbolize_names: true)
     json.map do |dados|
-    @dados = [dados[:id], dados[:sigla], dados[:nome]]
+    @dados = dados[:id], dados[:sigla], dados[:nome]
     end
   end
 

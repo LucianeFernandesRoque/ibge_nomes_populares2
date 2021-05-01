@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'webmock/rspec'
 
 require 'active_support/all'
 PROJECT_ROOT = File.expand_path('..', __dir__)
