@@ -1,3 +1,4 @@
+require 'sqlite3'
 require 'colorize'
 require 'terminal-table'
 require_relative 'ibge_estados'
@@ -26,6 +27,6 @@ class FrequenciaNomes
       end
     end
   end
- 
-
 end
+
+

@@ -1,21 +1,27 @@
-require 'faraday'
-require 'frequencia_nomes'
 require 'spec_helper'
 require 'json'
+require 'faraday'
+require 'frequencia_nomes'
+RSpec.describe 'FrequenciaNomes' do
+  context 'return_response' do
+    it 'frequencia_decadas methods' do
+      response = [
+        {
+          "nome": 'MARIA',
+          "sexo": 'null',
+          "localidade": 'BR',
+          "res": {
+            "periodo": '1930[',
+            "frequencia": 336_477
+          }
+        }
+      ]
+      sent_response = class_double('sent_resp', body: response.to_json, status: 200)
+      url = 'https://servicodados.ibge.gov.br/api/v2/censos/nomes/Maria'
+      allow(Faraday).to receive(:get).with(url).and_return(sent_response)
+      @frequencia = FrequenciaNomes.frequencia_decadas
 
-
-describe 'FrequenciaNomes' do
-  context 'api validates' do
-    it 'validate status' do
-      response = Faraday.get('https://servicodados.ibge.gov.br/api/v2/censos/nomes/')
-
-      expect(response.status).to eq(200)
-      expect(response.status).not_to eq(404)
+      expect(@frequencia).to eq([['Maria', 336477, '1930']])
     end
-  end
-
-  it 'cant not return null' do
-    response = Faraday.get('https://servicodados.ibge.gov.br/api/v2/censos/nomes/')
-    expect(response.body).to_not be_nil
   end
 end
