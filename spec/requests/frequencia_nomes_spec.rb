@@ -4,7 +4,7 @@ require 'faraday'
 require 'frequencia_nomes'
 RSpec.describe 'FrequenciaNomes' do
   context 'return_response' do
-    it 'frequencia_decadas methods' do
+    xit 'frequencia_decadas methods' do
       response = [
         {
           "nome": 'MARIA',

@@ -23,7 +23,7 @@ class RankingNomes
     puts id = gets.chomp
     puts 'Selecione F ou M'
     sexo = gets.chomp
-    response = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking?sexo=#{sexo}&localidade=#{id}")
+    response = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking?")
     json = JSON.parse(response.body, symbolize_names: true)
     json.map do |ranking|
       ranking[:res].map do |nomes|
@@ -31,7 +31,6 @@ class RankingNomes
       end
     end
   end
-
   def self.table_nomes
     @rows = []
     @table = Terminal::Table.new rows: @rows
