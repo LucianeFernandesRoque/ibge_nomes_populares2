@@ -9,12 +9,7 @@ require 'json'
 class FrequenciaNomes
   attr_accessor :nome, :frequencia, :periodo
 
-  def initialize=(nome, frequencia, periodo, decadas)
-    @nome = nome
-    @frequencia = frequencia
-    @periodo = periodo
-    @decadas = decadas
-  end
+  def initialize=(nome, frequencia, periodo, decadas); end
 
   def self.frequencia_decadas
     nome = gets.chomp
@@ -28,5 +23,3 @@ class FrequenciaNomes
     end
   end
 end
-
-

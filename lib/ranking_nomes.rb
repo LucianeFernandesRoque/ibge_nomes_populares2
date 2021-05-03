@@ -8,22 +8,14 @@ require 'json'
 class RankingNomes
   attr_accessor :regiao, :sexo, :nome, :frequencia, :ranking
 
-  def initialize=(localidade, sexo, nome, frequencia, ranking)
-    @localidade = localidade
-    @sexo = sexo
-    @nome = nome
-    @frequencia = frequencia
-    @ranking = ranking
-    @id = id
-    @nome_frequencia = nome_frequencia
-  end
+  def initialize=(localidade, sexo, nome, frequencia, ranking); end
 
   def self.nomes_all
     puts 'Digite o id ?'
     puts id = gets.chomp
     puts 'Selecione F ou M'
     sexo = gets.chomp
-    response = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking?")
+    response = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking?sexo=#{sexo}&localidade=#{id}")
     json = JSON.parse(response.body, symbolize_names: true)
     json.map do |ranking|
       ranking[:res].map do |nomes|
@@ -31,6 +23,7 @@ class RankingNomes
       end
     end
   end
+
   def self.table_nomes
     @rows = []
     @table = Terminal::Table.new rows: @rows

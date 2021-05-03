@@ -4,11 +4,7 @@ require 'faraday'
 class IbgeEstados
   attr_accessor :id, :sigla, :nome
 
-  def initialize=(id, sigla, nome)
-    @id = id
-    @sigla = sigla
-    @nome = nome
-  end
+  def initialize=(id, sigla, nome); end
 
   def self.estados_all
     response = Faraday.get 'https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome'
@@ -17,6 +13,7 @@ class IbgeEstados
       @dados = dados[:id], dados[:sigla], dados[:nome]
     end
   end
+
   def self.table_estado
     @rows = []
     @table = Terminal::Table.new rows: @rows
