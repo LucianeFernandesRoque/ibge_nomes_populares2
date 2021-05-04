@@ -10,6 +10,7 @@ class RankingNomes
 
   def initialize=(localidade, sexo, nome, frequencia, ranking); end
 
+  
   def self.nomes_all
     puts 'Digite o id ?'
     puts id = gets.chomp

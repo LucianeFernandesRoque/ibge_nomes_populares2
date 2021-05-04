@@ -12,7 +12,7 @@ gem 'faraday', '~> 0.9.2'
 gem 'jbuilder', '~> 2.7'
 gem 'rake'
 gem 'rspec', '~> 3.4'
-gem 'simplecov', require: false, group: :test
+gem 'simplecov', '~> 0.12.0'
 gem 'sqlite3'
 gem 'terminal-table'
 
