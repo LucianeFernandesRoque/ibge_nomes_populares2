@@ -1,11 +1,5 @@
-require 'spec_helper'
-require 'Options'
-RSpec.describe Options do
-  describe 'return messages' do
-    it 'welcome' do
-      
-    end
-    it "Choise one option" do
-  end
+describe 'Option' do
+  context 'show all options' do
+    it ''
   end
 end

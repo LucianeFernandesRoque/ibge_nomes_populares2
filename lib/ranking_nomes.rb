@@ -13,10 +13,10 @@ class RankingNomes
   
   def self.nomes_all
     puts 'Digite o id ?'
-    puts id = gets.chomp
+    localidade = gets.chomp
     puts 'Selecione F ou M'
     sexo = gets.chomp
-    response = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking?sexo=#{sexo}&localidade=#{id}")
+    response = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking?sexo=#{sexo}&localidade=#{localidade}")
     json = JSON.parse(response.body, symbolize_names: true)
     json.map do |ranking|
       ranking[:res].map do |nomes|
