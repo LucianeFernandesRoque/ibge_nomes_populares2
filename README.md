@@ -22,15 +22,14 @@ utilizar os dados vindos do banco de dados ao invés da API de localidades.
 
 
 ## Getting Started
-
 Essas instruções fornecerão uma cópia do projeto instalado e funcionando em sua máquina local para fins de desenvolvimento e teste.
 
 ### Pré-requisitos
 Máquina com sistema operacional Linux ( ou Windows Subsystem for Linux e similares) com chave SSH configurada, e Ruby 2.7.2.
 
-### Instalação
-*  Em seu terminal, digite:
-  `$ git@github.com:LucianeFernandesRoque/      ibge_nomes_populares_com_bd.git`
+### Configuração
+*  Para usar a aplicação em sua máquina,clone o projeto:
+  `$ git@github.com:LucianeFernandesRoque/ibge_nomes_populares2.git`
 *  Após clonar, execute:
   `$ bundle install`
 *  Execute:
@@ -46,6 +45,17 @@ Máquina com sistema operacional Linux ( ou Windows Subsystem for Linux e simila
   `$ rspec ./spec/requests/ibge_dados_spec.rb`
   `$ rspec ./spec/requests/ranking_nomes_spec.rb`
 ## Dados da api em contrução
+   Retorna todas as UFS
+   Faça um GET em 
+  'https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome'
+   A resposta sera um json, contendo os seguintes dados
+  [
+    {
+      id: 12,
+      sigla: "AC",
+      nome: "Acre"  
+    }
+  }
 
 ### Author
 *  Luciane Fernandes Roque
